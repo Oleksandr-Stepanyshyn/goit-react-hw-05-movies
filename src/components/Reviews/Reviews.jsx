@@ -21,8 +21,6 @@ export default function Reviews() {
     })();
   }, [movieId]);
 
-  console.log(reviews);
-
   return (
     <>
       <ReviewsTitle>Reviews</ReviewsTitle>

@@ -5,7 +5,7 @@ export const ReviewsTitle = styled.h3`
 `;
 
 export const ReviewsList = styled.ul`
-  padding-left: 20px;
+  padding: 0 0 20px 20px;
 `;
 
 export const ReviewsItem = styled.li`
@@ -18,11 +18,11 @@ export const ReviewsText = styled.p`
   margin-top: 12px;
 `;
 
-export const Author = styled.span`
+export const AuthorName = styled.span`
   margin-left: 8px;
   font-weight: 500;
 `;
 
 export const ErrorReview = styled.p`
-  padding-left: 20px;
+  padding: 0 0 20px 20px;
 `;

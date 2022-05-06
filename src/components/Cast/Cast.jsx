@@ -27,21 +27,21 @@ export default function Cast() {
       <CastTitle>Actors</CastTitle>
       <ActorsList>
         {actorsList &&
-          actorsList.map(actor => (
-            <Actor key={actor.id}>
+          actorsList.map(({ id, profile_path, name, character }) => (
+            <Actor key={id}>
               <Foto
                 src={
-                  actor.profile_path
-                    ? `https://image.tmdb.org/t/p/original${actor.profile_path}`
+                  profile_path
+                    ? `https://image.tmdb.org/t/p/original${profile_path}`
                     : avatar
                 }
-                alt={actor.name}
+                alt={name}
               />
               <ActorInfo>
                 <InfoTitle>Name:</InfoTitle>
-                <span>{actor.name}</span>
+                <span>{name}</span>
                 <InfoTitle>Character:</InfoTitle>
-                <span>{actor.character}</span>
+                <span>{character}</span>
               </ActorInfo>
             </Actor>
           ))}

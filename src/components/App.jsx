@@ -13,14 +13,15 @@ export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <AppBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies" element={<MoviesPage />}>
-          <Route index element={<SearchMovies />} />
-          <Route path=":movieId" element={<MoviesDetailsPage />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
+        <Route path="/" element={<AppBar />}>
+          <Route index element={<HomePage />} />
+          <Route path="/movies" element={<MoviesPage />}>
+            <Route index element={<SearchMovies />} />
+            <Route path=":movieId" element={<MoviesDetailsPage />}>
+              <Route path="cast" element={<Cast />} />
+              <Route path="reviews" element={<Reviews />} />
+            </Route>
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />

@@ -6,12 +6,12 @@ import {
   ReviewsItem,
   ReviewsText,
   ReviewsTitle,
-  Author,
+  AuthorName,
   ErrorReview,
 } from './Reviews.styled';
 
 export default function Reviews() {
-  const [reviews, setReviews] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const { movieId } = useParams();
 
   useEffect(() => {
@@ -21,22 +21,25 @@ export default function Reviews() {
     })();
   }, [movieId]);
 
+  const showReviews = Boolean(reviews.length);
+
   return (
     <>
       <ReviewsTitle>Reviews</ReviewsTitle>
-      <ReviewsList>
-        {reviews &&
-          reviews.map(review => (
-            <ReviewsItem key={review.id}>
+
+      {showReviews ? (
+        <ReviewsList>
+          {reviews.map(({ id, author, content }) => (
+            <ReviewsItem key={id}>
               <h4>
-                Author:<Author>{review.author}</Author>
+                Author:<AuthorName>{author}</AuthorName>
               </h4>
-              <ReviewsText>{review.content}</ReviewsText>
+              <ReviewsText>{content}</ReviewsText>
             </ReviewsItem>
           ))}
-      </ReviewsList>
-      {reviews && (
-        <ErrorReview>We don't have any reviews for this mivie</ErrorReview>
+        </ReviewsList>
+      ) : (
+        <ErrorReview>We don't have any reviews for this movie.</ErrorReview>
       )}
     </>
   );

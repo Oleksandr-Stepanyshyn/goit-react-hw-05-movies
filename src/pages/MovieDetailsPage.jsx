@@ -11,13 +11,21 @@ import {
   ArrowLeft,
 } from 'components/MovieDetailsPage/MovieDetailsPage.styled';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import { fetchDetailsFilm } from 'services/servicesApi';
 
 export default function MoviesDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
 
   useEffect(() => {
     (async function datailsFilm() {
@@ -43,13 +51,13 @@ export default function MoviesDetailsPage() {
               {movie.title}
               <span>({Number.parseInt(movie.release_date)})</span>
             </h2>
-            <Text>{movie.vote_average}</Text>
+            <Text>Rating: {movie.vote_average}</Text>
             <h3>Owerview</h3>
             <Text>{movie.overview}</Text>
             <h4>Genres</h4>
             <Text>
-              {movie.genres.map(genre => (
-                <Genre key={genre.id}>{genre.name}</Genre>
+              {movie.genres.map(({ id, name }) => (
+                <Genre key={id}>{name}</Genre>
               ))}
             </Text>
           </DetailsInfo>

@@ -1,23 +1,21 @@
-import { Link } from 'react-router-dom';
-import { MoviesItem, List } from './MovieList.styled';
+import { MoviesItem, List, Image, Title, LinkMovie } from './MovieList.styled';
 
-export const MoviesList = ({ movies, url, location }) => {
+export const MoviesList = ({ movies, location }) => {
   return (
     <List>
-      {movies.map(({ id, title, poster_path }) => (
+      {movies.map(({ id, title, name, poster_path }) => (
         <MoviesItem key={id}>
-          {/* <Image
-              src={`https://image.tmdb.org/t/p/original${poster_path}`}
-              alt={title}
-            /> */}
-          <Link
-            to={{
-              pathname: `${url}${id}`,
-              state: { from: location },
-            }}
-          >
-            {title}
-          </Link>
+          <LinkMovie to={`/movies/${id}`} state={{ from: location }}>
+            <Image
+              src={
+                poster_path
+                  ? `https://image.tmdb.org/t/p/original/${poster_path}`
+                  : 'https://cdn.pixabay.com/photo/2014/03/25/16/27/movie-297135_960_720.png'
+              }
+              alt={title ?? name}
+            />
+            <Title>{title ?? name}</Title>
+          </LinkMovie>
         </MoviesItem>
       ))}
     </List>

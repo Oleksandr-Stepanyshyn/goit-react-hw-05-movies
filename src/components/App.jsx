@@ -7,7 +7,6 @@ import AppBar from './AppBar/AppBar';
 import Cast from './Cast/Cast';
 import { GlobalStyle } from './GlobalStyle';
 import Reviews from './Reviews/Reviews';
-import SearchMovies from './SearchMovies/SearchMovies';
 
 export const App = () => {
   return (
@@ -16,12 +15,10 @@ export const App = () => {
       <Routes>
         <Route path="/" element={<AppBar />}>
           <Route index element={<HomePage />} />
-          <Route path="/movies" element={<MoviesPage />}>
-            <Route index element={<SearchMovies />} />
-            <Route path=":movieId" element={<MoviesDetailsPage />}>
-              <Route path="cast" element={<Cast />} />
-              <Route path="reviews" element={<Reviews />} />
-            </Route>
+          <Route path="movies" element={<MoviesPage />} />
+          <Route path="movies/:movieId" element={<MoviesDetailsPage />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
           </Route>
         </Route>
         <Route path="*" element={<NotFoundPage />} />

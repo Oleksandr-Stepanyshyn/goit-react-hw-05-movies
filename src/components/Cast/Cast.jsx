@@ -17,8 +17,12 @@ export default function Cast() {
 
   useEffect(() => {
     (async function fetchActors() {
-      const response = await fetchActorList(movieId);
-      setActorsList(response);
+      try {
+        const response = await fetchActorList(movieId);
+        setActorsList(response);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, [movieId]);
 

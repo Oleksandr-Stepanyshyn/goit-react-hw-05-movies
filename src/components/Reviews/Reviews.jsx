@@ -16,8 +16,12 @@ export default function Reviews() {
 
   useEffect(() => {
     (async function fetchReviewsList() {
-      const response = await fetchReviews(movieId);
-      setReviews(response);
+      try {
+        const response = await fetchReviews(movieId);
+        setReviews(response);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, [movieId]);
 

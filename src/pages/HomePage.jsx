@@ -6,12 +6,15 @@ import { fetchFilms } from '../services/servicesApi';
 export default function HomePage() {
   const [movies, setMovies] = useState(null);
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     (async function fetchMovies() {
-      const data = await fetchFilms();
-      setMovies(data);
+      try {
+        const data = await fetchFilms();
+        setMovies(data);
+      } catch (error) {
+        console.error(error);
+      }
     })();
   }, []);
 
@@ -24,9 +27,7 @@ export default function HomePage() {
       >
         Trending today
       </h2>
-      {movies && (
-        <MoviesList movies={movies} url={'movies/'} location={location} />
-      )}
+      {movies && <MoviesList movies={movies} location={location} />}
     </>
   );
 }

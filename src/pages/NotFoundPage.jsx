@@ -1,9 +1,10 @@
-import { Link } from 'react-router-dom';
+import { ErrorLink, ErrorText } from 'components/NotFoundPage/NotFoundPage';
 
 export default function NotFoundPage(params) {
   return (
-    <p>
-      Такой страницы не найдено вернитесь на <Link to="/">Home page</Link>
-    </p>
+    <ErrorText>
+      This page was not found, please return to
+      <ErrorLink to="/">Home page</ErrorLink>
+    </ErrorText>
   );
 }

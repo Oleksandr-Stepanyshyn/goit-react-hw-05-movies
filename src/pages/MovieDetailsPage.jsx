@@ -25,30 +25,41 @@ export default function MoviesDetailsPage() {
   const [movie, setMovie] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     (async function datailsFilm() {
-      const data = await fetchDetailsFilm(movieId);
-      setMovie(data);
+      try {
+        const data = await fetchDetailsFilm(movieId);
+        setMovie(data);
+      } catch (error) {
+        navigate('/');
+      }
     })();
-  }, [movieId]);
+  }, [movieId, navigate]);
+
+  function goBack() {
+    navigate(location?.state?.from ?? '/');
+  }
 
   return (
     <>
-      <GoBackButton type="button" onClick={() => navigate('/')}>
+      <GoBackButton type="button" onClick={goBack}>
         <ArrowLeft />
         Go back
       </GoBackButton>
       {movie && (
         <MovieCard>
           <Image
-            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+            src={
+              movie.poster_path
+                ? `https://image.tmdb.org/t/p/original${movie.poster_path}`
+                : 'https://cdn.pixabay.com/photo/2014/03/25/16/27/movie-297135_960_720.png'
+            }
             alt={movie.title}
           />
           <DetailsInfo>
             <h2>
-              {movie.title}
+              {movie.title ?? movie.name}
               <span>({Number.parseInt(movie.release_date)})</span>
             </h2>
             <Text>Rating: {movie.vote_average}</Text>

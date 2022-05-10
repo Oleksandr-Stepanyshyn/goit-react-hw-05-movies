@@ -1,28 +1,33 @@
-import HomePage from 'pages/HomePage';
-import MoviesDetailsPage from 'pages/MovieDetailsPage';
-import MoviesPage from 'pages/MoviesPage';
-import NotFoundPage from 'pages/NotFoundPage';
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AppBar from './AppBar/AppBar';
-import Cast from './Cast/Cast';
 import { GlobalStyle } from './GlobalStyle';
+import Spinner from './Spinner/Spinner';
+import Cast from './Cast/Cast';
 import Reviews from './Reviews/Reviews';
+
+const AppBar = lazy(() => import('./AppBar/AppBar'));
+const HomePage = lazy(() => import('pages/HomePage'));
+const MoviesDetailsPage = lazy(() => import('pages/MovieDetailsPage'));
+const MoviesPage = lazy(() => import('pages/MoviesPage'));
+const NotFoundPage = lazy(() => import('pages/NotFoundPage'));
 
 export const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<AppBar />}>
-          <Route index element={<HomePage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="movies/:movieId" element={<MoviesDetailsPage />}>
-            <Route path="cast" element={<Cast />} />
-            <Route path="reviews" element={<Reviews />} />
+      <Suspense fallback={<Spinner />}>
+        <Routes>
+          <Route path="/" element={<AppBar />}>
+            <Route index element={<HomePage />} />
+            <Route path="movies" element={<MoviesPage />} />
+            <Route path="movies/:movieId" element={<MoviesDetailsPage />}>
+              <Route path="cast" element={<Cast />} />
+              <Route path="reviews" element={<Reviews />} />
+            </Route>
           </Route>
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </>
   );
 };

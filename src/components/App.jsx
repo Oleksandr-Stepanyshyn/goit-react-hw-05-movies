@@ -1,5 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { GlobalStyle } from './GlobalStyle';
 import Spinner from './Spinner/Spinner';
 import Cast from './Cast/Cast';
@@ -28,6 +30,7 @@ export const App = () => {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>
+      <ToastContainer />
     </>
   );
 };

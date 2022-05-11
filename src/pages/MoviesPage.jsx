@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { MoviesList } from 'components/MovieList/MovieList';
 import { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -7,7 +8,7 @@ import { Button, Form, Input } from 'components/MoviesPage/MoviesPage.styled';
 export default function MoviesPage(params) {
   const [query, setQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
-  const [movies, setMovies] = useState(null);
+  const [movies, setMovies] = useState([]);
   const location = useLocation();
 
   useEffect(() => {
@@ -18,6 +19,17 @@ export default function MoviesPage(params) {
       try {
         const response = await fetchSearchMovies(searchParams);
         setMovies(response);
+        if (!response.length) {
+          toast.info('Nothing found for your request', {
+            position: 'top-center',
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       } catch (error) {
         console.error(error);
       }
@@ -30,7 +42,19 @@ export default function MoviesPage(params) {
 
   const handlSubmit = e => {
     e.preventDefault();
-    setSearchParams({ query });
+    const currentQuery = query.trim();
+    if (!currentQuery) {
+      return toast.warn('enter a valid request!', {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    setSearchParams({ query: currentQuery });
     setQuery('');
   };
 

@@ -79,10 +79,14 @@ export default function MoviesDetailsPage() {
         <p>Additional information</p>
         <InformationList>
           <InformationItem>
-            <Link to="cast">Cast</Link>
+            <Link to="cast" state={{ from: location?.state?.from }}>
+              Cast
+            </Link>
           </InformationItem>
           <InformationItem>
-            <Link to="reviews">Reviews</Link>
+            <Link to="reviews" state={{ from: location?.state?.from }}>
+              Reviews
+            </Link>
           </InformationItem>
         </InformationList>
       </Information>
